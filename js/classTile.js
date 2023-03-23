@@ -11,9 +11,10 @@ class Tile {
   paintSquare() {
     ctx.fillStyle = this.tileColor;
     ctx.fillRect(this.position.x * columnWidth, this.position.y * rowHeight, columnWidth, rowHeight);
+    
     // marks the center of the tile
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.centerX, this.centerY, 2, 2);
+    //ctx.fillStyle = "red";
+    //ctx.fillRect(this.centerX, this.centerY, 2, 2);
   }
 
   printTile() {
@@ -30,10 +31,16 @@ class Tile {
     // removes newly connected from available neighbors
     let neighborIndex = this.availableNeighbors.indexOf(destination);
     this.availableNeighbors.splice(neighborIndex,1);
-    
+
+
+   /* TODO: MAY REMOVE IF NO PROBLEMS
+   this.availableNeighbors = this.availableNeighbors.filter(function( tile ) {
+      return tile !== destination;
+  });
+    */
+
     // draws new tile and the path representing the connection
     drawPath(this,destination,color)
-    destination.paintSquare();
   }
   
   // finds available neighbors on the X-Y axis
@@ -100,3 +107,4 @@ function drawPath(startTile,endTile, color) {
   ctx.lineTo(endX, endY);
   ctx.stroke();
 }
+

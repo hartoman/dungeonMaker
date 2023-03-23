@@ -1,4 +1,4 @@
-let rows = 11; // for symmetry give odd number
+const rows = 11; // for symmetry give odd number
 let columns;
 let columnWidth;
 let rowHeight;
@@ -10,7 +10,7 @@ const color = "gray";
 // setup important variables based on num rows
 calcColumns();
 // draws empty grid
-drawGrid("white");
+//drawGrid("white");
 // creates empty tiles
 setUpTiles();
 
@@ -67,7 +67,7 @@ function getTile(x, y, tilearray) {
 
 // returns true if selected coordinates are out of grid
 function isOutOfGrid(x, y) {
-  if (y < 0 || y > rows || x < 0 || x > columns) {
+  if ((y < 0) || (y > rows-1) || (x < 0) || (x > columns)) {
     return true;
   }
   return false;

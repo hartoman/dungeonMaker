@@ -30,7 +30,6 @@ function animate() {
   window.requestAnimationFrame(animate);
 }
 
-// TODO: fill-in
 // updates the position of all sprites on screen
 function updateAll() {
   player.update();
