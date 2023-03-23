@@ -1,3 +1,5 @@
+const pathWidth =canvasBoundingBox.width/100;
+
 class Tile {
   constructor({ position }) {
     this.position = position;
@@ -91,6 +93,55 @@ class Tile {
   }
   this.availableNeighbors = neighbors;
 }
+
+ // finds available neighbors on the X-Y axis
+ findDiagonalNeighbors() {
+  let x = this.position.x;
+  let y = this.position.y;
+  let neighbors = [];
+
+  // check north-west
+  let possibleX = x- distance;
+  let possibleY = y - distance;
+  let possibleNeighbor;
+  if (!isOutOfGrid(possibleX, possibleY)) {
+    possibleNeighbor = getTile(possibleX, possibleY, tiles);
+    if (!this.connectsTo.includes(possibleNeighbor)) {
+      neighbors.push(possibleNeighbor);
+    }
+  }
+
+  // check south-east
+  possibleX = x+ distance;
+  possibleY = y + distance;
+  if (!isOutOfGrid(possibleX, possibleY)) {
+    possibleNeighbor = getTile(possibleX, possibleY, tiles);
+    if (!this.connectsTo.includes(possibleNeighbor)) {
+      neighbors.push(possibleNeighbor);
+    }
+  }
+
+  // check south+west
+  possibleX = x - distance;
+  possibleY = y+ distance;
+  if (!isOutOfGrid(possibleX, possibleY)) {
+    possibleNeighbor = getTile(possibleX, possibleY, tiles);
+    if (!this.connectsTo.includes(possibleNeighbor)) {
+      neighbors.push(possibleNeighbor);
+    }
+  }
+
+  // check north-east
+  possibleX = x + distance;
+  possibleY = y- distance;
+  if (!isOutOfGrid(possibleX, possibleY)) {
+    possibleNeighbor = getTile(possibleX, possibleY, tiles);
+    if (!this.connectsTo.includes(possibleNeighbor)) {
+      neighbors.push(possibleNeighbor);
+    }
+  }
+  this.availableNeighbors = neighbors;
+}
 }
 
 // sums up drawing a line
@@ -102,9 +153,10 @@ function drawPath(startTile,endTile, color) {
   ctx.strokeStyle = color;
   // so that it does not affect gtid
   ctx.beginPath();
-  ctx.lineWidth=10;
+  ctx.lineWidth=pathWidth;
   ctx.moveTo(startX, startY);
   ctx.lineTo(endX, endY);
   ctx.stroke();
 }
+
 
