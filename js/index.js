@@ -5,8 +5,8 @@ let allNeighbors = []; // frontier of available neighbors
 //we begin at the center of the map
 let gridCenter = getTile(Math.floor(columns / 2), Math.floor(rows / 2), tiles);
 
-createPrimsMaze(gridCenter, 30);
-//createDiagonalMaze(gridCenter, 25)
+//createPrimsMaze(gridCenter, 25);
+createDiagonalMaze(gridCenter, 25)
 
 // draw the dungeon
 drawGraph(dungeonTiles);

@@ -1,4 +1,4 @@
-const rows = 11; // for symmetry give odd number
+const rows = 21; // for symmetry give odd number
 let columns;
 let columnWidth;
 let rowHeight;
@@ -67,7 +67,7 @@ function getTile(x, y, tilearray) {
 
 // returns true if selected coordinates are out of grid
 function isOutOfGrid(x, y) {
-  if ((y < 0) || (y > rows-1) || (x < 0) || (x > columns)) {
+  if ((y < 1) || (y > rows-2) || (x < 1) || (x > columns-2)) {
     return true;
   }
   return false;
