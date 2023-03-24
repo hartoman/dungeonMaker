@@ -1,4 +1,4 @@
-const pathWidth =canvasBoundingBox.width/100;
+
 
 class Tile {
   constructor({ position }) {
@@ -29,119 +29,73 @@ class Tile {
     this.connectsTo.push(destination)
     destination.connectsTo.push(this)
     // creates list of available neighbors for newly connected tile
-    destination.findAvailableNeighbors();
+    destination.findOrthogonalNeighbors();
     // removes newly connected from available neighbors
     let neighborIndex = this.availableNeighbors.indexOf(destination);
     this.availableNeighbors.splice(neighborIndex,1);
-
-
-   /* TODO: MAY REMOVE IF NO PROBLEMS
-   this.availableNeighbors = this.availableNeighbors.filter(function( tile ) {
-      return tile !== destination;
-  });
-    */
-
     // draws new tile and the path representing the connection
     drawPath(this,destination,color)
   }
   
   // finds available neighbors on the X-Y axis
- findAvailableNeighbors() {
+ findOrthogonalNeighbors() {
   let x = this.position.x;
   let y = this.position.y;
-  let neighbors = [];
 
   // check north
-  let possibleX = x;
-  let possibleY = y - distance;
-  let possibleNeighbor;
-  if (!isOutOfGrid(possibleX, possibleY)) {
-    possibleNeighbor = getTile(possibleX, possibleY, tiles);
-    if (!this.connectsTo.includes(possibleNeighbor)) {
-      neighbors.push(possibleNeighbor);
-    }
-  }
-
-  // check south
-  possibleX = x;
-  possibleY = y + distance;
-  if (!isOutOfGrid(possibleX, possibleY)) {
-    possibleNeighbor = getTile(possibleX, possibleY, tiles);
-    if (!this.connectsTo.includes(possibleNeighbor)) {
-      neighbors.push(possibleNeighbor);
-    }
-  }
-
-  // check west
-  possibleX = x - distance;
-  possibleY = y;
-  if (!isOutOfGrid(possibleX, possibleY)) {
-    possibleNeighbor = getTile(possibleX, possibleY, tiles);
-    if (!this.connectsTo.includes(possibleNeighbor)) {
-      neighbors.push(possibleNeighbor);
-    }
-  }
-
-  // check east
-  possibleX = x + distance;
-  possibleY = y;
-  if (!isOutOfGrid(possibleX, possibleY)) {
-    possibleNeighbor = getTile(possibleX, possibleY, tiles);
-    if (!this.connectsTo.includes(possibleNeighbor)) {
-      neighbors.push(possibleNeighbor);
-    }
-  }
-  this.availableNeighbors = neighbors;
+  checkInDirection(this,x,y - distance);
+ // check south
+  checkInDirection(this,x,y + distance);
+ // check west
+  checkInDirection(this,x - distance,y);
+ // check east
+  checkInDirection(this,x + distance,y);
 }
 
- // finds available neighbors on the X-Y axis
+ // finds available neighbors on the diagonals
  findDiagonalNeighbors() {
   let x = this.position.x;
   let y = this.position.y;
-  let neighbors = [];
 
   // check north-west
-  let possibleX = x- distance;
-  let possibleY = y - distance;
-  let possibleNeighbor;
-  if (!isOutOfGrid(possibleX, possibleY)) {
-    possibleNeighbor = getTile(possibleX, possibleY, tiles);
-    if (!this.connectsTo.includes(possibleNeighbor)) {
-      neighbors.push(possibleNeighbor);
-    }
-  }
-
+  checkInDirection(this,x - distance,y- distance);
   // check south-east
-  possibleX = x+ distance;
-  possibleY = y + distance;
-  if (!isOutOfGrid(possibleX, possibleY)) {
-    possibleNeighbor = getTile(possibleX, possibleY, tiles);
-    if (!this.connectsTo.includes(possibleNeighbor)) {
-      neighbors.push(possibleNeighbor);
-    }
-  }
-
+  checkInDirection(this,x + distance,y+ distance);
   // check south+west
-  possibleX = x - distance;
-  possibleY = y+ distance;
-  if (!isOutOfGrid(possibleX, possibleY)) {
-    possibleNeighbor = getTile(possibleX, possibleY, tiles);
-    if (!this.connectsTo.includes(possibleNeighbor)) {
-      neighbors.push(possibleNeighbor);
-    }
-  }
-
+  checkInDirection(this,x - distance,y+ distance);
   // check north-east
-  possibleX = x + distance;
-  possibleY = y- distance;
-  if (!isOutOfGrid(possibleX, possibleY)) {
-    possibleNeighbor = getTile(possibleX, possibleY, tiles);
-    if (!this.connectsTo.includes(possibleNeighbor)) {
-      neighbors.push(possibleNeighbor);
-    }
-  }
-  this.availableNeighbors = neighbors;
+  checkInDirection(this,x + distance,y- distance);
+
 }
+
+ // finds available neighbors in all directions
+ findAllNeighborsInAllDirections() {
+  let x = this.position.x;
+  let y = this.position.y;
+
+    // check north
+    checkInDirection(this,x,y - distance);
+    // check south
+     checkInDirection(this,x,y + distance);
+    // check west
+     checkInDirection(this,x - distance,y);
+    // check east
+     checkInDirection(this,x + distance,y);
+     // check north-west
+  checkInDirection(this,x - distance,y- distance);
+  // check south-east
+  checkInDirection(this,x + distance,y+ distance);
+  // check south+west
+  checkInDirection(this,x - distance,y+ distance);
+  // check north-east
+  checkInDirection(this,x + distance,y- distance);
+}
+
+
+
+
+
+
 }
 
 // sums up drawing a line
@@ -160,3 +114,11 @@ function drawPath(startTile,endTile, color) {
 }
 
 
+function checkInDirection(currentTile,possibleX,possibleY){
+  if (!isOutOfGrid(possibleX, possibleY)) {
+    let possibleNeighbor = getTile(possibleX, possibleY, tiles);
+    if (!currentTile.connectsTo.includes(possibleNeighbor)) {
+      currentTile.availableNeighbors.push(possibleNeighbor);
+    }
+  }
+}

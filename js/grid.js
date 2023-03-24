@@ -1,4 +1,4 @@
-const rows = 21; // for symmetry give odd number
+const rows = 20; // for symmetry give odd number
 let columns;
 let columnWidth;
 let rowHeight;
