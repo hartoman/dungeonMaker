@@ -7,9 +7,9 @@ const pathWidth = rowHeight / 10; // the thiccness of the drawn lines for paths
 let gridCenter = getTile(Math.floor(columns / 2), Math.floor(rows / 2), tiles);
 
 // string direction: Orthogonal, Diagonal, All
-createPrimsMaze(gridCenter, 150,"Orthogonal");
-//createPrimsMaze(gridCenter, 50,"Diagonal");
-//createPrimsMaze(gridCenter, 50, "All");
+ createPrimsMaze(gridCenter, 40,"Orthogonal");
+// createPrimsMaze(gridCenter, 50,"Diagonal");
+// createPrimsMaze(gridCenter, 50, "All");
 
 // draw the dungeon
 drawGraph(dungeonTiles);
