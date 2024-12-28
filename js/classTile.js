@@ -13,10 +13,6 @@ class Tile {
   paintSquare() {
     ctx.fillStyle = this.tileColor;
     ctx.fillRect(this.position.x * columnWidth, this.position.y * rowHeight, columnWidth, rowHeight);
-    
-    // marks the center of the tile
-    //ctx.fillStyle = "red";
-    //ctx.fillRect(this.centerX, this.centerY, 2, 2);
   }
 
   printTile() {

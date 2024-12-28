@@ -10,6 +10,7 @@ html {
 
 body {
     flex-grow: 1;
+    background: black;
 }
 
 #canvas{
